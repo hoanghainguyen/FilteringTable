@@ -39,6 +39,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.TextField;
+import org.tepi.filtertable.util.StringPool;
 
 @SuppressWarnings("serial")
 class FilterFieldGenerator implements Serializable {
@@ -352,6 +353,7 @@ class FilterFieldGenerator implements Serializable {
     private void addFilterColumn(Object propertyId, Component filter) {
         owner.getColumnIdToFilterMap().put(propertyId, filter);
         filter.setParent(owner.getAsComponent());
+
     }
 
     private void removeFilter(Object propertyId) {
@@ -368,6 +370,7 @@ class FilterFieldGenerator implements Serializable {
         if (owner.getFilterable() != null) {
             owner.getFilterable().addContainerFilter(filter);
         }
+
         filters.put(propertyId, filter);
     }
 
@@ -412,6 +415,8 @@ class FilterFieldGenerator implements Serializable {
         }
         field.setWidth(null);
         field.setImmediate(true);
+
+        //field.setDescription(StringPool.FilterText_First_Part_Tooltips + field.getId()+  StringPool.FilterText_Last_Part_Tooltips);
         return field;
     }
 
@@ -435,6 +440,11 @@ class FilterFieldGenerator implements Serializable {
             }
         }
         textField.setNullRepresentation("");
+        if(propertyId!=null){
+
+            textField.setDescription(StringPool.FilterText_First_Part_Tooltips + propertyId.toString()+  StringPool.FilterText_Last_Part_Tooltips);
+        }
+
         texts.put(textField, propertyId);
         return textField;
     }
@@ -513,6 +523,11 @@ class FilterFieldGenerator implements Serializable {
         DateFilterPopup dateFilterPopup = new DateFilterPopup(
                 owner.getFilterDecorator(), propertyId);
         dates.put(dateFilterPopup, propertyId);
+
+        if(propertyId!=null){
+
+            dateFilterPopup.setDescription(StringPool.FilterDate_Tooltips );
+        }
         return dateFilterPopup;
     }
 

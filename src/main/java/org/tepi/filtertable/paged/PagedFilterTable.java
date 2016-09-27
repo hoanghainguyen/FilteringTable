@@ -22,6 +22,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.Reindeer;
+import org.tepi.filtertable.util.StringPool;
 
 @SuppressWarnings("serial")
 public class PagedFilterTable<T extends Container.Indexed & Container.Filterable & Container.ItemSetChangeNotifier>
@@ -74,6 +75,8 @@ public class PagedFilterTable<T extends Container.Indexed & Container.Filterable
         }
         Label pageLabel = new Label(config.getPage(), ContentMode.HTML);
         final TextField currentPageTextField = new TextField();
+
+        currentPageTextField.setDescription(StringPool.CurrentPage_Tooltips);
         currentPageTextField.setValue(String.valueOf(getCurrentPage()));
         currentPageTextField.setConverter(new StringToIntegerConverter() {
             @Override
@@ -138,6 +141,7 @@ public class PagedFilterTable<T extends Container.Indexed & Container.Filterable
                 setCurrentPage(0);
             }
         });
+        first.setDescription(StringPool.First_Tooltips);
         final Button previous = new Button(config.getPrevious(),
                 new ClickListener() {
                     private static final long serialVersionUID = -355520120491283992L;
@@ -147,6 +151,8 @@ public class PagedFilterTable<T extends Container.Indexed & Container.Filterable
                         previousPage();
                     }
                 });
+        previous.setDescription(StringPool.Previous_Tooltips);
+
         final Button next = new Button(config.getNext(), new ClickListener() {
             private static final long serialVersionUID = -1927138212640638452L;
 
@@ -155,6 +161,8 @@ public class PagedFilterTable<T extends Container.Indexed & Container.Filterable
                 nextPage();
             }
         });
+        next.setDescription(StringPool.Next_Tooltips);
+
         final Button last = new Button(config.getLast(), new ClickListener() {
             private static final long serialVersionUID = -355520120491283992L;
 
@@ -163,6 +171,8 @@ public class PagedFilterTable<T extends Container.Indexed & Container.Filterable
                 setCurrentPage(getTotalAmountOfPages());
             }
         });
+        last.setDescription(StringPool.Last_Tooltips);
+
         first.setStyleName(Reindeer.BUTTON_LINK);
         previous.setStyleName(Reindeer.BUTTON_LINK);
         next.setStyleName(Reindeer.BUTTON_LINK);
