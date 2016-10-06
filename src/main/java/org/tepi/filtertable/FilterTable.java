@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.vaadin.data.util.BeanItemContainer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.tepi.filtertable.FilterFieldGenerator.IFilterTable;
+import org.tepi.filtertable.datefilter.DateFilterPopup;
 import org.tepi.filtertable.datefilter.DateInterval;
 
 import com.vaadin.data.Container;
@@ -22,6 +26,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomTable;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.TextField;
+import org.tepi.filtertable.paged.PagedFilterTableContainer;
 
 /**
  * FilterTable is an extension of the Vaadin Table component that provides
@@ -32,6 +37,8 @@ import com.vaadin.ui.TextField;
  */
 @SuppressWarnings("serial")
 public class FilterTable extends CustomTable implements IFilterTable {
+    private static final Log logger = LogFactory.getLog(FilterTable.class);
+
     /* Maps property id's to column filter components */
     private final Map<Object, Component> columnIdToFilterMap = new HashMap<Object, Component>();
     /* Internal list of currently collapsed column id:s */
@@ -59,6 +66,7 @@ public class FilterTable extends CustomTable implements IFilterTable {
      */
     public FilterTable() {
         this(null);
+        this.setImmediate(true);
     }
 
     /**

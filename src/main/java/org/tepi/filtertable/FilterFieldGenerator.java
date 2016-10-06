@@ -442,7 +442,7 @@ class FilterFieldGenerator implements Serializable {
         textField.setNullRepresentation("");
         if(propertyId!=null){
 
-            textField.setDescription(StringPool.FilterText_First_Part_Tooltips + propertyId.toString()+  StringPool.FilterText_Last_Part_Tooltips);
+            textField.setDescription(propertyId.toString() +StringPool.FilterText_First_Part_Tooltips +   StringPool.FilterText_Last_Part_Tooltips);
         }
 
         texts.put(textField, propertyId);

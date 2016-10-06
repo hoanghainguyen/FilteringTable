@@ -6,25 +6,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import com.vaadin.ui.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.tepi.filtertable.FilterDecorator;
+import org.tepi.filtertable.util.StringPool;
 import org.vaadin.hene.popupbutton.PopupButton;
 import org.vaadin.hene.popupbutton.PopupButton.PopupVisibilityEvent;
 import org.vaadin.hene.popupbutton.PopupButton.PopupVisibilityListener;
 
 import com.vaadin.data.util.converter.Converter.ConversionException;
 import com.vaadin.shared.ui.datefield.Resolution;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CustomField;
-import com.vaadin.ui.DateField;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.InlineDateField;
-import com.vaadin.ui.VerticalLayout;
 
 /**
  * Extension of PopupButton used to implement filter UI for Date properties.
@@ -101,10 +95,32 @@ public class DateFilterPopup extends CustomField<DateInterval> {
             @Override
             public void buttonClick(ClickEvent event) {
                 logger.info("buttonClick" +event.getButton().getCaption());
+
+
                 updateValue(clear.equals(event.getButton()));
             }
         };
-        set.addClickListener(buttonClickHandler);
+
+        ClickListener updateButtonClickHandler = new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                logger.info("updateButtonClickHandler" +event.getButton().getCaption());
+
+                updateSetValue();
+            }
+        };
+
+        set.addClickListener(updateButtonClickHandler);
+
+//        if (fromField.getValue().before(toField.getValue())){
+//
+//            logger.info("set addClickListener ...");
+//
+//            set.addClickListener(buttonClickHandler);
+//            logger.info("... set addClickListener end ");
+//
+//        }
+
         clear.addClickListener(buttonClickHandler);
 
         HorizontalLayout buttonBar = new HorizontalLayout();
@@ -201,6 +217,8 @@ public class DateFilterPopup extends CustomField<DateInterval> {
             toField.setValue(null);
         } else {
             cancelReset = true;
+            logger.info("updateValue cancelReset ...");
+
         }
         /* Truncate the from and to dates */
         Resolution res = decorator != null ? decorator
@@ -212,6 +230,34 @@ public class DateFilterPopup extends CustomField<DateInterval> {
         toValue = truncateDate(toField.getValue(), res, false);
         setValue(new DateInterval(fromValue, toValue));
         DateFilterPopup.this.content.setPopupVisible(false);
+    }
+
+    private void updateSetValue() {
+        cancelReset = true;
+
+        if(fromField.getValue()==null || toField.getValue()==null ){
+            Notification.show(StringPool.FilterDate_both_fields_notification);
+        }
+        else if(fromField.getValue()!=null && toField.getValue()!=null && (fromField.getValue().after(toField.getValue()))){
+            Notification.show(StringPool.FilterDate_recent_notification);
+
+        }else{
+
+
+
+            /* Truncate the from and to dates */
+            Resolution res = decorator != null ? decorator
+                    .getDateFieldResolution(propertyId) : DEFAULT_RESOLUTION;
+            if (res == null) {
+                res = DEFAULT_RESOLUTION;
+            }
+            fromValue = truncateDate(fromField.getValue(), res, true);
+            toValue = truncateDate(toField.getValue(), res, false);
+            setValue(new DateInterval(fromValue, toValue));
+            DateFilterPopup.this.content.setPopupVisible(false);
+
+
+        }
     }
 
     private Date truncateDate(Date date, Resolution resolution, boolean start) {

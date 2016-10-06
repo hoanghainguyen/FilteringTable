@@ -130,7 +130,7 @@ public class PagedFilterTable<T extends Container.Indexed & Container.Filterable
 
         });
 
-        resetFiltersButton.setDescription("Click here to clear the filters");
+        resetFiltersButton.setDescription(StringPool.ResetFilter_Tooltips);
 
 
         final Button first = new Button(config.getFirst(), new ClickListener() {
@@ -393,4 +393,6 @@ public class PagedFilterTable<T extends Container.Indexed & Container.Filterable
         super.resetFilters();
         setCurrentPage(1);
     }
+
+
 }
