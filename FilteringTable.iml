@@ -20,9 +20,6 @@
         <setting name="gwtScriptOutputStyle" value="OBF" />
         <setting name="gwtSdkUrl" value="file://C:\java\maven\.m2\repository/com/vaadin/vaadin-client/7.7.0" />
         <setting name="gwtSdkType" value="Vaadin-Maven" />
-        <packaging>
-          <module name="org.tepi.filtertable.gwt.FilterTableWidgetset" enabled="false" />
-        </packaging>
       </configuration>
     </facet>
   </component>

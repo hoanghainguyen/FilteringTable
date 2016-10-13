@@ -74,7 +74,6 @@ public class DateFilterPopup extends CustomField<DateInterval> {
     }
 
     protected void buildPopup() {
-        logger.info("buildPopup...");
         VerticalLayout content = new VerticalLayout();
         content.setStyleName("datefilterpopupcontent");
         content.setSpacing(true);
@@ -104,7 +103,6 @@ public class DateFilterPopup extends CustomField<DateInterval> {
         ClickListener updateButtonClickHandler = new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                logger.info("updateButtonClickHandler" +event.getButton().getCaption());
 
                 updateSetValue();
             }

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.vaadin.ui.*;
 import org.tepi.filtertable.datefilter.DateFilterPopup;
 import org.tepi.filtertable.datefilter.DateInterval;
 import org.tepi.filtertable.numberfilter.NumberFilterPopup;
@@ -33,12 +34,6 @@ import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.server.Resource;
 import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.ui.AbstractField;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.Field;
-import com.vaadin.ui.HasComponents;
-import com.vaadin.ui.TextField;
 import org.tepi.filtertable.util.StringPool;
 
 @SuppressWarnings("serial")
@@ -417,6 +412,7 @@ class FilterFieldGenerator implements Serializable {
         field.setImmediate(true);
 
         //field.setDescription(StringPool.FilterText_First_Part_Tooltips + field.getId()+  StringPool.FilterText_Last_Part_Tooltips);
+        field.setDescription("415: "+field.getType() +" Des "+field.getDescription()+  "" +((CustomTable)owner).getColumnHeader(field)+StringPool.FilterText_First_Part_Tooltips +   StringPool.FilterText_Last_Part_Tooltips);
         return field;
     }
 
@@ -442,7 +438,10 @@ class FilterFieldGenerator implements Serializable {
         textField.setNullRepresentation("");
         if(propertyId!=null){
 
-            textField.setDescription(propertyId.toString() +StringPool.FilterText_First_Part_Tooltips +   StringPool.FilterText_Last_Part_Tooltips);
+
+
+            //textField.setDescription(owner.propertyId.toString() +StringPool.FilterText_First_Part_Tooltips +   StringPool.FilterText_Last_Part_Tooltips);
+            textField.setDescription("443: "+((CustomTable)owner).getColumnHeader(propertyId)+StringPool.FilterText_First_Part_Tooltips +   StringPool.FilterText_Last_Part_Tooltips);
         }
 
         texts.put(textField, propertyId);
