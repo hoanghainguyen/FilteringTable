@@ -93,8 +93,6 @@ public class DateFilterPopup extends CustomField<DateInterval> {
         ClickListener buttonClickHandler = new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                logger.info("buttonClick" +event.getButton().getCaption());
-
 
                 updateValue(clear.equals(event.getButton()));
             }
@@ -138,7 +136,6 @@ public class DateFilterPopup extends CustomField<DateInterval> {
         content.setComponentAlignment(buttonBar, Alignment.BOTTOM_RIGHT);
         
         this.content.setContent(content);
-        logger.info("end  of buildPopup");
     }
 
     public void setFilterDecorator(FilterDecorator decorator) {
@@ -215,7 +212,6 @@ public class DateFilterPopup extends CustomField<DateInterval> {
             toField.setValue(null);
         } else {
             cancelReset = true;
-            logger.info("updateValue cancelReset ...");
 
         }
         /* Truncate the from and to dates */
